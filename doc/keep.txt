@@ -1,0 +1,111 @@
+*keep.txt*					keep your file content safe
+	                                                          _~
+      _~
+      ( )                                           _~
+      | |/')    __     __   _ _        ___   _   _ (_)  ___ ___~
+      | , <   /'__`\ /'__`\( '_`\    /' _ `\( ) ( )| |/' _ ` _ `\~
+      | |\`\ (  ___/(  ___/| (_) ) _ | ( ) || \_/ || || ( ) ( ) |~
+      (_) (_)`\____)`\____)| ,__/'(_)(_) (_)`\___/'(_)(_) (_) (_)~
+			  | |~
+			  (_)~
+	
+Author		: Qiming Zhao <chemzqm@gmail.com>
+Version		: 0.1.0
+Last Change	: Mar 10, 2018
+
+License : MIT license {{{
+
+  Copyright (c) 2018 chemzqm@gmail.com
+
+  Permission is hereby granted, free of charge, to any person obtaining
+  a copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to
+  permit persons to whom the Software is furnished to do so, subject to
+  the following conditions:
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+}}}
+
+==============================================================================
+CONTENTS						*keep-contents*
+
+INTRODUCTION		|keep-introduction|
+INSTALLATION		|keep-installation|
+INTERFACE		|keep-interface|
+  CONFIG			|keep-config|
+  COMMANDS			|keep-commands|
+CHANGELOG		|keep-changelog|
+
+==============================================================================
+INTRODUCTION						*keep-introduction*
+
+Save file content to redis for later restore after saving the file.
+
+Your files could be accidently removed (by something like `rm -rf` `git reset`),
+you can't get it back easily unless you have swap file, but no one want to have
+swap file in their code base, so keep.nvim comes for help, it automatic store
+file content associate with file path into redis, and you could restore them by
+a simple command.
+
+==============================================================================
+INSTALLATION						*keep-installation*
+
+Prerequirement:
+
+  [redis](https://redis.io/) server.
+  [nodejs](http://nodejs.org/) >= `0.9.0`
+  [neovim](https://github.com/neovim/neovim) >= `0.2.2`
+
+Install with your favorite plugin manager like NeoBundle/Plugin/Plug
+>
+>
+	NeoBundle 'neoclide/keep.nvim'
+	Plugin 'neoclide/keep.nvim'
+	Plug 'neoclide/keep.nvim', {do: 'npm install'}
+
+Run shell command `npm install` in project root directory after plugin
+install and run ':UpdateRemotePlugins' if needed.
+
+------------------------------------------------------------------------------
+CONFIG								*keep-config*
+
+*g:nvim_keep_redis_host*
+
+    Redis host, default '127.0.0.1'
+
+*g:nvim_keep_redis_port*
+
+    Redis port, default 6379
+
+*g:nvim_keep_redis_expire*
+
+    Expire time in seconds for key of file path
+
+------------------------------------------------------------------------------
+COMMANDS							*keep-commands*
+
+:KeepRestore [{filepath}]
+
+  Restore content of {filepath}, restore content of current file of current
+  buffer without {filepath} argument.
+
+==============================================================================
+CHANGELOG							*keep-changelog*
+
+0.1.0	Mar 10, 2018
+	- init.
+
+==============================================================================
+
+vim:tw=78:ts=8:sts=8:ft=help:noet:fen:fdm=marker:
