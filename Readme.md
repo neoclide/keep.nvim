@@ -14,6 +14,14 @@ a simple command.
 * [nodejs](http://nodejs.org/) >= `0.9.0`
 * [neovim](https://github.com/neovim/neovim) >= `0.2.2`
 
+## Installation
+
+Take [vim-plug](https://github.com/junegunn/vim-plug) for example:
+
+    Plug 'neoclide/keep.nvim', {do: 'npm install'}
+
+Run `:UpdateRemotePlugins` in vim after installation.
+
 ## Usage
 
 * `:KeepRestore [filepath]` restore the content of current file or filepath
