@@ -12,6 +12,16 @@ bluebird.promisifyAll(fs)
 let redisClient
 let expire
 
+async function existFile(file) {
+  let res
+  try {
+    res =  await fs.statAsync(file)
+  } catch (e) {
+    return false
+  }
+  return res.isFile()
+}
+
 @Plugin({ dev: true })
 export default class TestPlugin {
 
@@ -26,6 +36,32 @@ export default class TestPlugin {
     redisClient = redis.createClient(port, host)
     if (!redisClient) {
       console.error(`redis client not found for ${host || '127.0.0.1'}:${port || 6379}`)
+    }
+  }
+
+  @Autocmd('VimLeave', {
+    sync: false,
+    pattern: '*'
+  })
+  async onVimLeave() {
+    if (redisClient) {
+      redisClient.quit()
+    }
+  }
+
+  @Autocmd('BufWritePost', {
+    sync: false,
+    pattern: '*',
+    eval: 'expand("<afile>:p")'
+  })
+  async onBufWrite(fullpath) {
+    if (!redisClient) return
+    let stats = await fs.statAsync(fullpath)
+    if (stats && stats.isFile()) {
+      let content = await fs.readFileAsync(fullpath, 'utf8')
+      let key = encodeURIComponent(fullpath)
+      await redisClient.setAsync(key, content)
+      await redisClient.expireAsync(key, expire)
     }
   }
 
@@ -62,19 +98,17 @@ export default class TestPlugin {
     }
   }
 
-  @Autocmd('BufWritePost', {
-    sync: false,
-    pattern: '*',
-    eval: 'expand("<afile>:p")'
-  })
-  async onBufWrite(fullpath) {
-    if (!redisClient) return
-    let stats = await fs.statAsync(fullpath)
-    if (stats && stats.isFile()) {
-      let content = await fs.readFileAsync(fullpath, 'utf8')
-      let key = encodeURIComponent(fullpath)
-      await redisClient.setAsync(key, content)
-      await redisClient.expireAsync(key, expire)
-    }
+  @Function('KeepRemovedFiles', {sync: true})
+  async removedFiles(args) {
+    if (!redisClient) return []
+    let root = args.length == 0
+      ? await this.nvim.eval('getcwd()')
+      : args[0]
+    const pattern = encodeURIComponent(root) + '*'
+    let files = await redisClient.keysAsync(pattern)
+    files = files.map(f => decodeURIComponent(f))
+    return await bluebird.filter(files, async file => {
+      return !await existFile(file)
+    })
   }
 }

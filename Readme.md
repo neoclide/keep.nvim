@@ -27,6 +27,9 @@ Run `:UpdateRemotePlugins` in vim after installation.
 * `:KeepRestore [filepath]` restore the content of current file or filepath
   resolved from CWD of neovim.
 
+* `KeepRemovedFiles([directory])` a helper function to get removed files array
+based on directory (or current cwd if not specified)
+
 ## Configuration
 
 * `g:nvim_keep_redis_host`, default to `127.0.0.1`
