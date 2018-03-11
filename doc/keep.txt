@@ -10,7 +10,7 @@
 			  (_)~
 	
 Author		: Qiming Zhao <chemzqm@gmail.com>
-Version		: 0.1.0
+Version		: 0.1.1
 Last Change	: Mar 10, 2018
 
 License : MIT license {{{
@@ -96,6 +96,14 @@ CONFIG								*keep-config*
 ------------------------------------------------------------------------------
 COMMANDS							*keep-commands*
 
+								*denite-keep*
+:Dentie keep
+
+  List removed files that stored in keep based on CWD, you can do
+  `reset` action to restore the file. You should have
+  https://github.com/Shougo/denite.nvim installed to use this feature.
+
+								*:KeepRestore*
 :KeepRestore [{filepath}]
 
   Restore content of {filepath}, restore content of current file of current
@@ -106,8 +114,9 @@ FUNCTIONS							*keep-functions*
 
 							      *KeepRemovedFiles*
 KeepRemovedFiles([{directory}])
-	  Get all removed files based on {directory}, use vim's CWD whne
-	  {directory} not specified.
+
+  Get all removed files based on {directory}, use vim's CWD whne {directory}
+  not specified.
 
 
 ==============================================================================
@@ -115,6 +124,7 @@ CHANGELOG							*keep-changelog*
 
 0.1.1	Mar 11, 2018
 	- Add KeepRemovedFiles function
+	_ Add denite support
 
 0.1.0	Mar 10, 2018
 	- init.
