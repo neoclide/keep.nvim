@@ -26,7 +26,7 @@ Run `:UpdateRemotePlugins` in vim after installation.
 
 * `Denite keep` find removed files that stored in keep based on CWD, you can do
   `reset` action to restore the file. You should have
-  |dentie.nvim|(https://github.com/Shougo/denite.nvim) installed to use this
+  [dentie.nvim](https://github.com/Shougo/denite.nvim) installed to use this
   feature
 
 * `:KeepRestore [filepath]` restore the content of current file or filepath
