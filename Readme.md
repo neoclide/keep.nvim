@@ -1,5 +1,9 @@
 # Keep.nvim
 
+[![](http://img.shields.io/github/issues/neoclide/keep.svg)](https://github.com/neoclide/keep.nvim/issues)
+[![](http://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![](https://img.shields.io/badge/doc-%3Ah%20keep.txt-red.svg)](doc/keep.txt)
+
 Save file content to redis for later restore after saving the file.
 
 Your files could be accidently removed (by something like `rm -rf` `git reset`),
@@ -40,7 +44,3 @@ based on directory (or current cwd if not specified)
 * `g:nvim_keep_redis_host`, default to `127.0.0.1`
 * `g:nvim_keep_redis_port`, default to `6379`
 * `g:nvim_keep_redis_expire`, default to `5*24*3600` (5 days)
-
-## License
-
-MIT
