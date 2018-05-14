@@ -22,7 +22,7 @@ async function existFile(file) {
   return res.isFile()
 }
 
-@Plugin({ dev: !!process.env.NVIM_NODE_HOST_DEBUG })
+@Plugin({ dev: false })
 export default class TestPlugin {
 
   @Autocmd('VimEnter', {
